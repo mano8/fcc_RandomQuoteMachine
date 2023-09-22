@@ -82,7 +82,7 @@ const loadJsonQuotes = () => {
     return new Promise((resolve, reject) => {
         // First create an XMLHttprequest object
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json", true);
+        xhr.open("GET", "https://github.com/mano8/fcc_RandomQuoteMachine/blob/a45fd3a6e275b7936ab82ee234720bdd8e3550e0/json/quotes.json", true);
         xhr.getResponseHeader("Content-type", "application/json");
 
         xhr.onload = function() {
@@ -92,7 +92,7 @@ const loadJsonQuotes = () => {
             resolve(cleanJsonQuotes(data.quotes));
         }
 
-        xhr.onerror = (e) => {
+        xhr.onerror = () => {
             reject(false);
         }
 
