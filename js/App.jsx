@@ -82,7 +82,7 @@ const loadJsonQuotes = () => {
     return new Promise((resolve, reject) => {
         // First create an XMLHttprequest object
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://mano8.github.io/fcc_RandomQuoteMachine8/json/quotes.json", true);
+        xhr.open("GET", "https://mano8.github.io/fcc_RandomQuoteMachine/json/quotes.json", true);
         xhr.getResponseHeader("Content-type", "application/json");
 
         xhr.onload = function() {
