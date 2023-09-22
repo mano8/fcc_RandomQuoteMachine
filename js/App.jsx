@@ -92,6 +92,10 @@ const loadJsonQuotes = () => {
             resolve(cleanJsonQuotes(data.quotes));
         }
 
+        xhr.onerror = (e) => {
+            reject(false);
+        }
+
         xhr.send();
     });
 }
@@ -323,7 +327,7 @@ class AppWrapper extends React.Component {
             </Provider>
         );
     }
-};
+}
 
 
 ReactDOM.render(<AppWrapper />, document.getElementById('app'));
