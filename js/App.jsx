@@ -82,7 +82,7 @@ const loadJsonQuotes = () => {
     return new Promise((resolve, reject) => {
         // First create an XMLHttprequest object
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://mano8.github.io/fcc_RandomQuoteMachine/json/quotes.json", true);
+        xhr.open("GET", "https://mano8.github.io/fcc_RandomQuoteMachine8/json/quotes.json", true);
         xhr.getResponseHeader("Content-type", "application/json");
 
         xhr.onload = function() {
@@ -93,7 +93,7 @@ const loadJsonQuotes = () => {
         }
 
         xhr.onerror = () => {
-            reject(false);
+            reject();
         }
 
         xhr.send();
@@ -112,6 +112,10 @@ const loadQuotesAsync = () => {
             .then((quotes) => {
                 console.log("receivedData");
                 dispatch(receivedData(quotes));
+            })
+            .catch(() => {
+                console.log("Fatal Error: Unable to get Quotes");
+                dispatch(dataError("Sorry we are unable to load Quotes list from the server."))
             });
     }
 };
@@ -120,10 +124,12 @@ const loadQuotesAsync = () => {
  * Default state values.
  **/
 const defaultState = {
+    status: true,
     fetching: true,
     quotes: [],
     quote: {},
-    color: ''
+    color: '',
+    error_msg: ''
 };
 
 /**
@@ -133,27 +139,43 @@ const asyncDataReducer = (state = defaultState, action) => {
     switch(action.type) {
         case REQUESTING_DATA:
             return {
+                status: true,
                 fetching: true,
                 quotes: [],
                 quote: {},
-                color: ''
+                color: '',
+                error_msg: ''
             }
         case RECEIVED_DATA:
             return {
+                status: true,
                 fetching: false,
                 quotes: [...action.quotes],
                 quote: refreshQuote(action.quotes),
-                color: refreshColor()
+                color: refreshColor(),
+                error_msg: ''
             }
         case REFRESH:
             console.log("REFRESH Quote action.");
             console.log("Actual state.quotes : ")
             console.log(state.quotes)
             return {
+                status: true,
                 fetching: false,
                 quotes: state.quotes,
                 quote: refreshQuote(state.quotes),
-                color: refreshColor()
+                color: refreshColor(),
+                error_msg: ''
+            };
+        case DATA_ERROR:
+            console.log("DATA_ERROR Quote action.");
+            return {
+                status: false,
+                fetching: false,
+                quotes: [],
+                quote: '',
+                color: refreshColor(),
+                error_msg: action.error
             };
         default:
             return state;
@@ -239,7 +261,7 @@ class SocialPublisher extends React.Component {
 
 /**
  * Main Random Quote Machine component
- **/
+ */
 class QuoteMachine extends React.Component {
 
     constructor(props) {
@@ -269,6 +291,31 @@ class QuoteMachine extends React.Component {
 }
 
 /**
+ * Error Box Message
+ */
+class ErrorBox extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+    render(){
+        console.log("Render ErrorBox Component.");
+        console.log("ErrorBox props : ");
+        console.log(this.props);
+        return(
+            <div id="quote-box" className={`wrapper box-error`}>
+                <div className="error-header">
+                    <h1>Random Quote Machine : Error</h1>
+                </div>
+                <div className="error-message">
+                    {this.props.error_msg}
+                </div>
+            </div>
+        )
+    }
+}
+
+/**
  * Main Root component
  **/
 class Root extends React.Component {
@@ -283,17 +330,26 @@ class Root extends React.Component {
             console.log("Root props : ");
             console.log(this.props);
             const colorKey = getColorKey(this.props.data.color);
-            return(
-                <section className={`container box-${colorKey}`}>
-                    <div className={`wrapper-header text-${colorKey}`}>
-                        <h1><strong>The Random Quote Machine</strong></h1>
-                    </div>
-                    <QuoteMachine quote={this.props.data.quote} color={colorKey} refreshQuote={this.props.refreshQuote} />
-                    <div className={`app-author text-${colorKey}`}>
-                        <strong>By Eli Serra</strong>
-                    </div>
-                </section>
-            )
+            if(this.props.data.status === false){
+                return(
+                    <section className={`container box-${colorKey}`}>
+                        <ErrorBox error_msg={this.props.data.error_msg} />
+                    </section>
+                )
+            }else{
+                return(
+                    <section className={`container box-${colorKey}`}>
+                        <div className={`wrapper-header text-${colorKey}`}>
+                            <h1><strong>The Random Quote Machine</strong></h1>
+                        </div>
+                        <QuoteMachine quote={this.props.data.quote} color={colorKey} refreshQuote={this.props.refreshQuote} />
+                        <div className={`app-author text-${colorKey}`}>
+                            <strong>By Eli Serra</strong>
+                        </div>
+                    </section>
+                )
+            }
+
         }
         else{
             console.log("Render Root Component and wait for quotes data.");

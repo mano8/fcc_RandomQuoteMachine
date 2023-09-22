@@ -128,7 +128,7 @@ $wrapper-min-width: 360px;
         display: flex;
 
         a{
-          padding: 5px;
+          padding: 10px;
           margin: auto 10px;
           font-size: 1.2em;
           font-weight: 900;
@@ -141,16 +141,34 @@ $wrapper-min-width: 360px;
       }
 
       .quote-refresh{
-        .quote-refresh button{
+        .btn{
           padding: 10px;
           border: 2px solid black;
           border-radius: 15px;
           font-weight: 900;
+          cursor: pointer;
         }
       }
     }/* end .quote-footer */
 
   }/* end .wrapper */
+  .box-error{
+    background-color: #b05349;
+    border-radius: 15px;
+    color: #f1c9c2;
+    .error-header{
+      font-family: $pri-font;
+      border-bottom: 2px solid #f1c9c2;
+      h1{
+        margin: 0;
+      }
+    }
+    .error-message{
+      font-family: $sec-font;
+      text-align: left;
+      padding: 10px 0;
+    }
+  }
   .app-author{
     width: 95%;
     min-width: $wrapper-min-width;

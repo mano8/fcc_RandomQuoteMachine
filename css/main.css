@@ -127,7 +127,7 @@
   display: flex;
 }
 .container .wrapper .quote-footer .quote-publish a {
-  padding: 5px;
+  padding: 10px;
   margin: auto 10px;
   font-size: 1.2em;
   font-weight: 900;
@@ -136,11 +136,29 @@
   border: 2px solid;
   border-radius: 10px;
 }
-.container .wrapper .quote-footer .quote-refresh .quote-refresh button {
+.container .wrapper .quote-footer .quote-refresh .btn {
   padding: 10px;
   border: 2px solid black;
   border-radius: 15px;
   font-weight: 900;
+  cursor: pointer;
+}
+.container .box-error {
+  background-color: #b05349;
+  border-radius: 15px;
+  color: #f1c9c2;
+}
+.container .box-error .error-header {
+  font-family: "Corben", serif;
+  border-bottom: 2px solid #f1c9c2;
+}
+.container .box-error .error-header h1 {
+  margin: 0;
+}
+.container .box-error .error-message {
+  font-family: "Lato", sans-serif;
+  text-align: left;
+  padding: 10px 0;
 }
 .container .app-author {
   width: 95%;
