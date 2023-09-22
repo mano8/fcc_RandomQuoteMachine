@@ -1,0 +1,264 @@
+/*
+*
+*/
+@import 'mixins';
+
+$pri-font: 'Corben', serif;
+$sec-font: 'Lato', sans-serif;
+$wrapper-min-width: 360px;
+:root{
+  --text-dark: linen;
+  --border-dark: #abc;
+  --box-dark: rgb(20, 30, 40);
+  --text-ligth: rgb(20, 30, 40);
+  --border-ligth: #666;
+  --box-ligth: linen;
+}
+
+
+#app, .container{
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.flex-column-center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* start .container */
+.container{
+  @extend .flex-column-center;
+  align-items: center;
+  min-width: 360px;
+  padding: 10px 0;
+  height: 100%;
+  overflow: auto;
+
+  .wrapper-header{
+    width: 95%;
+    min-width: $wrapper-min-width;
+    text-align: center;
+    padding: 10px;
+    margin: 20px auto 0 auto;
+    border-radius: 10px 10px 0 0;
+    background-color: rgb(20, 30, 40);
+    border: 2px inset black;
+    @include box-shadow(0px, 0px, 10px, white);
+    height: 50px;
+    h1{
+      margin: 0;
+    }
+  }
+  /* start .wrapper */
+  .wrapper{
+    width: 95%;
+    min-width: $wrapper-min-width;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    margin: 0 20px;
+    border: 2px inset black;
+    @include box-shadow(0px, 0px, 15px, white);
+    z-index: 1;
+    /* start .quote-wrapper */
+    .quote-wrapper{
+      @extend .flex-column-center;
+      flex-wrap: wrap;
+      align-items: center;
+      min-height: 180px;
+      /* start #text */
+      #text{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        text-align: center;
+        i{
+          position: relative;
+          display: inline-block;
+          font-size: 3em;
+        }
+
+        /* start  #text .quote */
+        .quote{
+          display: inline-block;
+          width: 85%;
+          margin: 0 5% 10px 5%;
+          font-size: 2em;
+          font-family: $pri-font;
+          word-break: break-word;
+        }/* end #text .quote */
+        .quote:hover{
+          color: linen;
+        }
+
+      }/* end #text */
+
+      hr{
+        width: 100%;
+      }
+      /* start #author */
+      #author{
+        width: 100%;
+        font-family: $sec-font;
+        font-weight: 900;
+        font-style: italic;
+        font-size: 1.2em;
+        text-align: center;
+        padding: 0;
+      }/* end #author */
+      #author:hover{
+        color: linen;
+      }
+    }/* end .quote-wrapper */
+
+    /* start .quote-footer */
+    .quote-footer{
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 0 10px 0;
+
+      .quote-publish{
+        display: flex;
+
+        a{
+          padding: 5px;
+          margin: auto 10px;
+          font-size: 1.2em;
+          font-weight: 900;
+        }
+
+        a:hover{
+          border: 2px solid;
+          border-radius: 10px;
+        }
+      }
+
+      .quote-refresh{
+        .quote-refresh button{
+          padding: 10px;
+          border: 2px solid black;
+          border-radius: 15px;
+          font-weight: 900;
+        }
+      }
+    }/* end .quote-footer */
+
+  }/* end .wrapper */
+  .app-author{
+    width: 95%;
+    min-width: $wrapper-min-width;
+    text-align: right;
+    padding: 10px 30px 10px 0;
+    margin: 0 auto 20px auto;
+    border-radius: 0 0 10px 10px;
+    background-color: rgb(20, 30, 40);
+    border: 2px inset black;
+    @include box-shadow(0px, 0px, 10px, white);
+    height: 50px;
+  }
+}/* end .container */
+
+.btn{
+  padding: 10px 15px;
+  font-size: 1.4em;
+  margin: auto 5px;
+  border: 2px solid black;
+  border-radius: 10px;
+
+}
+
+
+
+.text-dark{
+  color: var(--text-dark);
+}
+.border-dark{
+  color: var(--border-dark);
+}
+.box-dark{
+  background-color: var(--box-dark);
+}
+.btn-dark{
+  background-color: var(--text-dark);
+  color: var(--box-dark);
+  font-size: 1.4em;
+}
+
+
+@media only screen and (min-width: 850px){
+  .container .wrapper, .container .app-author, .container .wrapper-header{
+    width: 800px;
+  }
+
+  .container .wrapper .quote-wrapper #author{
+    text-align: right;
+    padding: 5px 10px 5px 0;
+  }
+}
+
+@keyframes color-transition {
+  0% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+}
+
+/*  */
+$colors-dark: (
+        color1: #16a085,//
+        color2: #27ae60,//
+        color3: #5a88b7,//
+        color4: #e8b15a,//
+        color5: #b05349,//
+        color6: #aa84b9,//
+        color7: #F0AFAD,//
+        color8: #c8a1a6,//
+        color9: #B05967,//
+        color10: #BDBB99,//
+        color11: #77B1A9,//
+        color12: #73A857//
+);
+
+$colors-light: (
+        color1: #16a085,
+        color2: #27ae60,
+        color3: #2c3e50,
+        color4: #f39c12,
+        color5: #e74c3c,
+        color6: #9b59b6,
+        color7: #FB6964,
+        color8: #342224,
+        color9: #472E32,
+        color10: #BDBB99,
+        color11: #77B1A9,
+        color12: #73A857
+);
+
+@each $key, $color in $colors-dark {
+  .text-#{$key} {color: $color;}
+  .border-#{$key} {border-color: $color;}
+  .box-#{$key}{
+    background: linear-gradient(40deg, linen 0%, $color, linen 95%) ;
+    animation: color-transition 2s ease-in-out 0s 1;
+  }
+  .btn-#{$key} {
+    background-color: var(--box-dark);
+    color: $color;
+    border-color: $color;
+    @include box-shadow(2px, 2px, 6px, $color);
+
+  }
+  .btn-#{$key}:hover{
+    background-color: $color;
+    color: var(--box-dark);
+  }
+}
